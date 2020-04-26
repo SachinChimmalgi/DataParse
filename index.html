@@ -5,14 +5,18 @@
 <h2>ERM Parser</h2>
 <p>Enter raw data in the text box, or click on parse to view default example</p>
 
-<input id="string" placeholder="Raw Data">
+<input id="string" placeholder="Raw Data"></p>
+<p>Edit format if needed, click on parse to use default format</p>
+<input id="format" value="#EDT#,#EID#,#PDT#,#LAT#,#LONG#,#SPD#,#HEAD#,#ODO#,#LAC#,#CID#,#VIN#,#VBAT#,#SAT#,#ALT#,#CSS#,#IGN#,#ENG#,#OUT1#,#OUT2#,#OUT3#,#OUT4#">
 <button type="button" onclick="onCliekFunction()">Parse</button>
+
 <p id="demo"></p>
 <p id="reportType"></p>
+<p id="deviceID"></p>
 <p id="data"></p>
 <p id="IDLength"></p>
-
 <p id="JSON"></p>
+<p id="CSV_Values"></p>
 
 
 
@@ -516,6 +520,7 @@ var parameterName = ["Engine Speed (RPM)",
 
 function onCliekFunction()		//Execute this when Parse is clicked
 {
+	document.getElementById("JSON").innerHTML = "";
 	//If string is entered in the text box, use it else use the default value
 	var temp = document.getElementById("string").value;
 	if(temp != "")
@@ -523,6 +528,11 @@ function onCliekFunction()		//Execute this when Parse is clicked
 	if(txt.startsWith('$'))
 	{
 		var res = txt.split(",");
+		document.getElementById("deviceID").innerHTML = "Device ID: "+res[0].substring(4);
+		var msgFormat = document.getElementById("format").value.split(",");
+		for(var i = 0; i < msgFormat.length; i++){
+			document.getElementById("JSON").innerHTML += msgFormat[i] +" = "+ res[i+3]+"<br />";
+		}
 		var canData = res[31].split("*")[0];
 	}
 	else
@@ -530,7 +540,6 @@ function onCliekFunction()		//Execute this when Parse is clicked
 		
 	var matchFound = 0;
 
-	document.getElementById("JSON").innerHTML = "";
 
 	if(canData.startsWith("14"))
 		document.getElementById("reportType").innerHTML = "Report Type - Periodic Report";
