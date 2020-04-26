@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<h2>ERM Parser</h2>
+<h2>Data Parser</h2>
 <p>Enter raw data in the text box, or click on parse to view default example</p>
 
 <input id="string" placeholder="Raw Data"></p>
@@ -542,9 +542,9 @@ function onCliekFunction()		//Execute this when Parse is clicked
 
 
 	if(canData.startsWith("14"))
-		document.getElementById("reportType").innerHTML = "Report Type - Periodic Report";
+		document.getElementById("reportType").innerHTML = "Report Type : Periodic Report";
 	else if(canData.startsWith("16"))
-		document.getElementById("reportType").innerHTML = "Report Type - Ignition OFF";
+		document.getElementById("reportType").innerHTML = "Report Type : Ignition OFF";
 	canData = canData.substring(2);
 	document.getElementById("data").innerHTML = "Can Data: "+canData;
 
